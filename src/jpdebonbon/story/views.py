@@ -10,17 +10,34 @@ def recit(request, piste_id, couleur_precedente):
     for p in piste.recit_source.pistes():
         p.choix = False
         #p.save()
-    
     piste.choix = True
-    try:
-        print "piste saving"
+    
+    if piste.recit_destination is None:
         piste.save()
-    except Exception as e:
-        print "exception:", e
-    
+    elif piste.recit_destination.ouvert():
+        piste.save()
+    else:
+        print "recit destination est fermé : ", piste.recit_destination
+        #recit destination déjà utilisé: il faut en faire une copie ouverte
+        dest = piste.recit_destination
+        nouveau = Recit(page=dest.page,
+                        description=dest.description,
+                        publication_date=dest.publication_date)
+        nouveau.save()
+        piste.recit_destination = nouveau
+        piste.save()
+        #creation des nouvelles pistes
+        for p in dest.pistes():
+            nouvelle_piste = Piste(recit_source=nouveau,
+                                   recit_destination=p.recit_destination,
+                                   texte=p.texte,
+                                   choix=False,
+                                   demander=p.demander,
+                                   reponse="")
+            nouvelle_piste.save()
+            
+        
     piste_class = "piste_orange" if couleur_precedente == "vert" else "piste_vert"
-    
-    print "piste selectionnee : ", piste, piste.choix
     return render_to_response('story/pages/recit.html',
                                {
                                    'recit': piste.recit_destination,

@@ -31,6 +31,10 @@ class Recit(models.Model):
     
     def nombre_pistes(self):
         return len(self.pistes())
+    
+    
+    def ouvert(self):
+        return self.piste_choisie() == []
     """
     def reset_choix(self):
         for p in self.pistes():

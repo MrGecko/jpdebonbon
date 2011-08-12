@@ -8,7 +8,7 @@ class PisteInline(admin.StackedInline):
     fk_name = 'recit_source'
     extra = 0
     fieldsets = [
-        (None, {'fields': ['recit_destination', 'texte'] }),
+        (None, {'fields': ['recit_destination', 'choix', 'texte'] }),
         ('Réponse', {'fields': ['demander', 'reponse'], 'classes': ['collapse']}),
     ]
 

@@ -26,6 +26,7 @@ $(document).ready(function(){
 	}
 	
 	function binder_demander_bouton(){
+		$(this).unbind();
 		var ma_couleur = ($(this).closest("li").hasClass("piste_vert") ? "vert" : "orange"); 
 		continuerHistoire($(this).closest("li").find(":input[type='hidden']").val(), ma_couleur);
 	}
@@ -35,7 +36,6 @@ $(document).ready(function(){
 		$.ajax({
 			  url: './'+index+"/"+ma_couleur,
 			  success: function(data) {		
-				  
 				  var recit = $("#en-tete-milieu-bas").prev();
 				  recit.animate({"padding-bottom" : 0}, 500);
 				  //recit.find("ul").animate({"padding-bottom" : 0}, 300);
