@@ -1,0 +1,48 @@
+<div class="recit">
+	<div class="publication_date publication_date_{{ piste_class }}">{{ recit.publication_date|date:"D d N Y" }} </div>
+	<p class="description">{{ recit.description }} </p>
+	{% if recit.nombre_pistes > 0 and not recit.piste_choisie %}
+		<div class="fleche_derouler {{piste_class}}"></div>
+	{% endif %}
+	
+	{% if recit.piste_choisie %} 
+    	<ul>
+    {% else %}
+    	<ul style="display:none;">
+    {% endif %}
+    
+    {% for piste in recit.pistes  %}
+    	{% if recit.piste_choisie %} 
+	    	{% if piste.choix %}
+		    	<li>
+		    		<input type="hidden" value="{{piste.id}}"/>
+		        	<span>   
+			        	<div>* {{ piste.texte }} </div>
+			        	{% if piste.demander %} 
+				        	<div class="demander">
+				        		<textarea></textarea>
+				        		<div class="demander-bouton">Envoyer</div>
+				        	</div>
+			        	{% endif %}
+		        	</span>
+		        </li>
+	    	{% endif %}
+    	{% else %}
+	    	<li class="{{piste_class}} piste_ouverte"> 
+	    		<input type="hidden" value="{{piste.id}}"/>
+	        	<span>   
+		        	<div class="piste_texte">* {{ piste.texte }} </div>
+		        	{% if piste.demander %} 
+			        	<div class="demander">
+			        		<textarea></textarea>
+			        		<div class="demander-bouton">Envoyer</div>
+			        	</div>
+		        	{% endif %}
+	        	</span>
+	        </li>
+    	{% endif %}  	
+    {% endfor %}
+    </ul>   
+   </div>
+
+

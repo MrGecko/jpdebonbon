@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="/static/page.css">
+	<script  type="text/javascript" src="/static/scripts/jquery-1.6.2.min.js"></script>
+	<script  type="text/javascript" src="/static/scripts/continue-story.js"></script>
+</head>
+
+	<body>
+		<div id="colonne-milieu">
+			<div id="en-tete-milieu-haut">
+				<p>Une histoire entre {{page.joueur}} et {{page.proprietaire}}</p>
+			</div>
+			{% if page.premier_recit %}
+				{% for recit in page.recits  %}
+					{% cycle 'piste_orange' 'piste_vert' as piste_class silent %}
+					{% include "story/pages/recit.html" %}
+			    {% endfor %}
+			{% endif %}
+			<div id="en-tete-milieu-bas"></div>
+		</div>	
+		
+	</body>
+</html>
+
