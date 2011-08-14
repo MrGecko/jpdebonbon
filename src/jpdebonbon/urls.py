@@ -10,7 +10,7 @@ urlpatterns = patterns('',
     url(r'^story/page/(?P<page_id>\d+)/$', 'story.views.page'),
     #reset une page
     url(r'^story/page/(?P<page_id>\d+)/reset/$', 'story.views.reset'),
-    url(r'^story/page/\d+/(?P<piste_id>\d+)/(?P<couleur_precedente>\w+)/$', 'story.views.recit'),
+    url(r'^story/page/\d+/(?P<piste_id>\d+)/$', 'story.views.recit'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

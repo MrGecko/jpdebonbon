@@ -17,13 +17,16 @@
 		    	<li>
 		    		<input type="hidden" value="{{piste.id}}"/>
 		        	<span>   
-			        	<div>* {{ piste.texte }} </div>
-			        	{% if piste.demander %} 
-				        	<div class="demander">
-				        		<textarea></textarea>
-				        		<div class="demander-bouton">Envoyer</div>
-				        	</div>
+			        	<div>
+			        	* {{ piste.texte }} 
+			        	{% if piste.demander %}
+			        		{% if piste.reponse|length > 0 %} 
+			        			<br>
+				        		{{ piste.reponse }}
+				        	{% endif %}
 			        	{% endif %}
+			        	</div>
+
 		        	</span>
 		        </li>
 	    	{% endif %}

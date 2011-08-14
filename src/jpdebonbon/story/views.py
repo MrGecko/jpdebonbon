@@ -4,20 +4,23 @@ from django.shortcuts import render_to_response
 from jpdebonbon.story.models import Page, Recit, Piste
 
 
-def recit(request, piste_id, couleur_precedente):
+def recit(request, piste_id):
     piste = Piste.objects.get(id=piste_id)
-    
+    print piste.recit_destination
+    #choisir la piste cliquée
     for p in piste.recit_source.pistes():
         p.choix = False
-        #p.save()
     piste.choix = True
     
+    if piste.demander and request.method == "POST":
+        if "reponse" in request.POST:
+            piste.reponse = request.POST["reponse"]
+
     if piste.recit_destination is None:
         piste.save()
     elif piste.recit_destination.ouvert():
         piste.save()
     else:
-        print "recit destination est fermé : ", piste.recit_destination
         #recit destination déjà utilisé: il faut en faire une copie ouverte
         dest = piste.recit_destination
         nouveau = Recit(page=dest.page,
@@ -35,14 +38,20 @@ def recit(request, piste_id, couleur_precedente):
                                    demander=p.demander,
                                    reponse="")
             nouvelle_piste.save()
-            
-        
-    piste_class = "piste_orange" if couleur_precedente == "vert" else "piste_vert"
+    
+     
+    couleur = None
+    if request.method == "POST":
+        if "couleur" in request.POST:
+            couleur = "piste_orange" if request.POST["couleur"] == "vert" else "piste_vert"
+
     return render_to_response('story/pages/recit.html',
                                {
                                    'recit': piste.recit_destination,
-                                   'piste_class' : piste_class,
+                                   'piste_class' : couleur,
                                })
+
+
 
 def page(request, page_id):
     p = Page.objects.get(id=page_id)
