@@ -1,30 +1,46 @@
-$(document).ready(function(){
 	
-	//pour autoriser les POST en ajax et ne pas se taper de 403 forbidden
-	$.ajaxSetup({ 
-	     beforeSend: function(xhr, settings) {
-	         function getCookie(name) {
-	             var cookieValue = null;
-	             if (document.cookie && document.cookie != '') {
-	                 var cookies = document.cookie.split(';');
-	                 for (var i = 0; i < cookies.length; i++) {
-	                     var cookie = jQuery.trim(cookies[i]);
-	                     // Does this cookie string begin with the name we want?
-	                 if (cookie.substring(0, name.length + 1) == (name + '=')) {
-	                     cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-	                     break;
-	                 }
-	             }
-	         }
-	         return cookieValue;
-	         }
-	         if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
-	             // Only send the token to relative URLs i.e. locally.
-	             xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-	         }
-	     } 
+//pour autoriser les POST en ajax et ne pas se taper de 403 forbidden
+$(document).ajaxSend(function(event, xhr, settings) {
+	    function getCookie(name) {
+	        var cookieValue = null;
+	        if (document.cookie && document.cookie != '') {
+	            var cookies = document.cookie.split(';');
+	            for (var i = 0; i < cookies.length; i++) {
+	                var cookie = jQuery.trim(cookies[i]);
+	                // Does this cookie string begin with the name we want?
+	                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+	                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+	                    break;
+	                }
+	            }
+	        }
+	        return cookieValue;
+	    }
+	    function sameOrigin(url) {
+	        // url could be relative or scheme relative or absolute
+	        var host = document.location.host; // host + port
+	        var protocol = document.location.protocol;
+	        var sr_origin = '//' + host;
+	        var origin = protocol + sr_origin;
+	        // Allow absolute or scheme relative URLs to same origin
+	        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+	            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+	            // or any other URL that isn't scheme relative or absolute i.e relative.
+	            !(/^(\/\/|http:|https:).*/.test(url));
+	    }
+	    function safeMethod(method) {
+	        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+	    }
+
+	    if (!safeMethod(settings.type)) {
+	    	var cookie = getCookie('csrftoken');
+	        xhr.setRequestHeader("X-CSRFToken", cookie);
+	    }
 	});
 	
+
+$(document).ready(function(){
+
 	
 	$("#colonne-milieu").hide();
 	
@@ -33,7 +49,6 @@ $(document).ready(function(){
 		var ul = $(recit).find("ul")[0];
 		var fleche = this;
 		$(ul).slideDown('slow', function() {
-			//$(recit).css("padding-bottom", "0px");
 			$(fleche).delay(200).slideUp("slow");
 		});
 	}
@@ -46,8 +61,8 @@ $(document).ready(function(){
 				$(demander[0]).slideDown('slow', function() {});
 			}
 			else {
-				var ma_couleur = ($(this).hasClass("piste_vert") ? "vert" : "orange"); 
-				continuerHistoire($(this).find(":input[type='hidden']").val(), ma_couleur, null);//$(this).index());
+				var mon_theme = ($(this).hasClass("theme_1") ? "theme_1" : "theme_2"); 
+				continuerHistoire($(this).find(":input[type='hidden']").val(), mon_theme, null);//$(this).index());
 			}	
 		}
 	}
@@ -55,22 +70,21 @@ $(document).ready(function(){
 	
 	function binder_demander_bouton(){
 		$(this).unbind();
-		var ma_couleur = ($(this).closest("li").hasClass("piste_vert") ? "vert" : "orange"); 
+		var mon_theme = ($(this).closest("li").hasClass("theme_1") ? "theme_1" : "theme_2"); 
 		var ma_reponse = $(this).closest("li").find("textarea").val();
-		continuerHistoire($(this).closest("li").find(":input[type='hidden']").val(), ma_couleur, ma_reponse);
+		continuerHistoire($(this).closest("li").find(":input[type='hidden']").val(), mon_theme, ma_reponse);
 	}
 	
 	
-	function continuerHistoire(index, ma_couleur, ma_reponse) {
+	function continuerHistoire(index, mon_theme, ma_reponse) {
 		$.ajax({
 			  url: './'+index+"/",
 			  type: "POST",
-			  data : {"couleur" : ma_couleur, "reponse" :  ma_reponse},
+			  crossDomain: true,
+			  data : {"theme" : mon_theme, "reponse" :  ma_reponse},
 			  success: function(data) {		
 				  var recit = $("#en-tete-milieu-bas").prev();
-				  //recit.animate({"padding-bottom" : 0}, 500);
-				  //recit.find("ul").animate({"padding-bottom" : 0}, 300);
-				  
+
 				  //fermer les pistes du recit
 				  recit.find("li").each(function(){
 					  if ($(this).find(":input[type='hidden']").val() == index)	{					  
@@ -97,7 +111,10 @@ $(document).ready(function(){
 				  $(new_recit).find(".fleche_derouler").click(binder_fleche_derouler);	
 				  $(new_recit).find(".demander-bouton").click(binder_demander_bouton);	
 
-				  $(new_recit).hide().delay(800).fadeIn();
+				  $(new_recit).hide().delay(520).fadeIn().queue(function(){
+						$('html,body').delay(50).animate({scrollTop: $(new_recit).position().top, },'slow');
+				  });
+					
 			  }
 		});
 	}
@@ -106,6 +123,17 @@ $(document).ready(function(){
 	$(".fleche_derouler").click(binder_fleche_derouler);
 	$(".demander-bouton").click(binder_demander_bouton);
 	
-	$("#colonne-milieu").delay(300).fadeIn();
+	$("#colonne-milieu").delay(100).fadeIn().queue(function(){
+
+		$("#scroll_down").click(function(){
+			var new_recit = $("#en-tete-milieu-bas").prev();
+			$('html,body').delay(120).animate({scrollTop: $(new_recit).position().top, },'slow');
+		})
+		
+		$("#scroll_up").click(function(){
+			$('html,body').delay(120).animate({scrollTop: $("h1").position().top, },'slow');
+		})
+	});
 	
+
 });

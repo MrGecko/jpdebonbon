@@ -1,8 +1,8 @@
 <div class="recit">
-	<div class="publication_date publication_date_{{ piste_class }}">{{ recit.publication_date|date:"D d N Y" }} </div>
+	<div class="publication_date publication_date_{{piste_theme}}">{{ recit.publication_date|date:"D d N Y" }} </div>
 	<p class="description">{{ recit.description }} </p>
 	{% if recit.nombre_pistes > 0 and not recit.piste_choisie %}
-		<div class="fleche_derouler {{piste_class}}"></div>
+		<div class="fleche_derouler {{piste_theme}}"></div>
 	{% endif %}
 	
 	{% if recit.piste_choisie %} 
@@ -31,7 +31,7 @@
 		        </li>
 	    	{% endif %}
     	{% else %}
-	    	<li class="{{piste_class}} piste_ouverte"> 
+	    	<li class="piste_ouverte {{piste_theme}}"> 
 	    		<input type="hidden" value="{{piste.id}}"/>
 	        	<span>   
 		        	<div class="piste_texte">* {{ piste.texte }} </div>

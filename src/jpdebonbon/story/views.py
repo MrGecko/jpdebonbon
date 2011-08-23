@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
-# Create your views here.
+
 from django.shortcuts import render_to_response
 from jpdebonbon.story.models import Page, Recit, Piste
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 
+
+
+@ensure_csrf_cookie
 def recit(request, piste_id):
     piste = Piste.objects.get(id=piste_id)
-    print piste.recit_destination
     #choisir la piste cliquée
     for p in piste.recit_source.pistes():
         p.choix = False
@@ -40,19 +43,24 @@ def recit(request, piste_id):
             nouvelle_piste.save()
     
      
-    couleur = None
+    theme = None
     if request.method == "POST":
-        if "couleur" in request.POST:
-            couleur = "piste_orange" if request.POST["couleur"] == "vert" else "piste_vert"
+        if "theme" in request.POST:
+            if request.POST["theme"] == "theme_2":
+                theme = "theme_1"
+            else:
+                theme = "theme_2"
 
     return render_to_response('story/pages/recit.html',
                                {
                                    'recit': piste.recit_destination,
-                                   'piste_class' : couleur,
+                                   'piste_theme' : theme,
                                })
 
 
 
+
+@ensure_csrf_cookie
 def page(request, page_id):
     p = Page.objects.get(id=page_id)
     derniers_recits = Recit.objects.filter(page=p)#.order_by('-pub_date')#[:10]
@@ -62,7 +70,7 @@ def page(request, page_id):
                                    'page' : p,
                                })
 
-
+@ensure_csrf_cookie
 def reset(request, page_id):
     p = Page.objects.get(id=page_id)
     derniers_recits = Recit.objects.filter(page=p)

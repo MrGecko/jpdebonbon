@@ -9,13 +9,18 @@
 </head>
 
 	<body>
+		<div id="en-tete">
+			<h1>Une histoire entre {{page.joueur}} et {{page.proprietaire}}</h1>
+			<img src="/static/images/scroll_down.png" id="scroll_down"/>
+			<img src="/static/images/scroll_up.png" id="scroll_up"/>
+		</div>
 		<div id="colonne-milieu">
 			<div id="en-tete-milieu-haut">
-				<p>Une histoire entre {{page.joueur}} et {{page.proprietaire}}</p>
+				
 			</div>
 			{% if page.premier_recit %}
 				{% for recit in page.recits  %}
-					{% cycle 'piste_orange' 'piste_vert' as piste_class silent %}
+					{% cycle "theme_1" "theme_2" as piste_theme silent %}
 					{% include "story/pages/recit.html" %}
 			    {% endfor %}
 			{% endif %}
