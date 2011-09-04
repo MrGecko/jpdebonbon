@@ -1,8 +1,10 @@
-#Sun Aug 07 00:19:13 CEST 2011
+#Sun Sep 04 14:56:36 CEST 2011
 eclipse.preferences.version=1
-encoding//src/jpdebonbon/settings.py=utf-8
-encoding//src/jpdebonbon/story/admin.py=utf-8
-encoding//src/jpdebonbon/story/models.py=utf-8
-encoding//src/jpdebonbon/story/views.py=utf-8
-encoding//src/jpdebonbon/urls.py=utf-8
-encoding//src/templates/story/pages/page.html=UTF-8
+encoding//src/novels/manage.py=utf-8
+encoding//src/novels/settings.py=utf-8
+encoding//src/novels/story/admin.py=utf-8
+encoding//src/novels/story/migrations/0001_initial.py=utf-8
+encoding//src/novels/story/models.py=utf-8
+encoding//src/novels/story/views.py=utf-8
+encoding//src/novels/urls.py=utf-8
+encoding/<project>=UTF-8

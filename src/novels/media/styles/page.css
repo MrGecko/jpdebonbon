@@ -1,0 +1,247 @@
+
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+body {	
+	background-color: #555;	
+	background-image: url("../images/papier-ondule3.jpg");
+}
+@font-face { 
+   	font-family: 'League_Gothic'; 
+   	src: local('League_Gothic'), url('../fonts/League_Gothic.otf') format('truetype'); 
+}
+
+@font-face { 
+   	font-family: 'Lmroman'; 
+   	src: local('Lmroman'), url('../fonts/lmroman10-regular.otf') format('truetype'); 
+}
+
+#en-tete {
+	width: 100%;
+	height: 50px;
+	position: fixed;
+	z-index: 1000000;
+	background-color: #328A95;
+	
+	-moz-box-shadow: 0px 0px 8px #333;  
+  	-webkit-box-shadow: 0px 0px 8px #333;  
+  	box-shadow: 0px 0px 8px #333; 
+  	
+  	//font-family: "Old Standard TT", georgia, times, serif;
+}
+#en-tete > img:hover{
+	cursor: pointer;
+}
+#scroll_up {
+	position: absolute;
+	right: 20px;
+	top: 4px;
+}
+#scroll_down {
+	position: absolute;
+	right: 80px;
+	top: 4px;
+}
+
+
+h1 {
+	margin: auto;
+	text-align: center;
+	padding-top: 0px;
+	color: #FFF;
+	font-size: 42px;
+}
+
+#colonne-milieu {
+	z-index: 50;
+	position: relative;
+    min-height: 100%;
+	width: 65%;
+	margin: auto;
+	padding-left: 42px;
+	padding-right: 42px;
+	padding-top: 50px;
+	border: 1px none #CCC;
+	border-style: none solid none none;
+	
+	//-moz-border-radius: 6px; 
+ 	//-webkit-border-radius: 6px; 
+  	//border-radius: 6px; 
+  	
+  	-moz-box-shadow: 1px 3px 10px #333;  
+  	-webkit-box-shadow: 3px 1px 10px #333;  
+  	box-shadow: 1px 3px 10px #333; 
+  	
+  	background-color: rgba(255, 255, 255, 0.45);
+
+}
+
+#en-tete-milieu-haut {
+	width: 100%;
+	height: 32px;
+	margin-bottom: 10px;
+}
+
+#en-tete-milieu-bas {
+	width: 100%;
+	height: 80px;
+}
+
+
+
+.recit {
+	padding-bottom: 14px;
+	margin-bottom: 16px;
+	margin-top: 0px;
+	margin-left: 12px;
+	margin-right: 12px;
+	
+	background-color: #DDDDDD;
+
+	//border: 1px none #EEEEEE;
+	//border-style: solid solid none none;
+	
+	-moz-border-radius: 6px; 
+ 	-webkit-border-radius: 6px; 
+  	border-radius: 6px; 
+  	
+  	-moz-box-shadow: 1px 3px 10px #333;  
+  	-webkit-box-shadow: 3px 1px 10px #333;  
+  	box-shadow: 1px 3px 10px #333; 
+  	
+	font-family: "Lmroman"; 
+	background: transparent url("../images/cahier.png") top left;
+	font-size: 1.3em;
+	
+}
+
+.description {
+	padding-left: 32px;
+	padding-right: 32px;
+	//padding-bottom: 14px;
+	text-align: justify;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	
+}
+
+.attente {
+	padding-top: 16px;	
+}
+
+.publication_date {
+	width: 160px;
+	margin-left: 12px;
+	padding-top: 12px;
+	
+	font-family: League_Gothic, "Helvetica Neue", arial, helvetica;
+	font-size: 16px;
+	text-transform: uppercase;
+}
+.publication_date_theme_1 {
+	color: #4EA29B;
+}
+.publication_date_theme_2 {
+	color: #49972B;
+}
+
+
+.karma:hover {
+	cursor: pointer;
+}
+
+.karma_face {
+	float: right;
+	margin-right: 8px;
+	margin-top: 9px;
+	width: 16px;
+	height: 16px;
+}
+
+.karma_points {
+	float: right;
+	font-size: 14px;
+	margin-top: 6px;
+	margin-right: 6px;
+}
+
+.karma_points_happy {
+	color: #33E;
+}
+.karma_points_evil {
+	color: #D33;
+}
+
+.happy {
+	background: url("../images/happy.png") no-repeat;	
+}
+.evil {
+	background: url("../images/evil.png") no-repeat;	
+}
+
+div.fleche_derouler {
+	margin: 0 auto;
+	display: block;
+	width: 41px;
+	height: 20px;
+	//padding-bottom: 14px;	
+	background: url("../images/fleche_derouler.png") no-repeat;	
+}
+div.theme_1:hover {
+	cursor: pointer;
+	background:  url("../images/fleche_derouler_t1.png") no-repeat;
+}
+div.theme_2:hover {
+	cursor: pointer;
+	background:  url("../images/fleche_derouler_t2.png")  no-repeat;
+}
+
+ul {
+	list-style-type: none;
+	padding-left: 0px;
+	//padding-bottom: 14px;	
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+li {
+	padding-left: 48px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	padding-right: 32px;
+	
+	text-align: justify;
+}
+li.piste_ouverte:hover {
+	cursor: pointer;
+	background-color: rgba(70, 70, 70, 0.5);
+	color: #FFF;
+}
+
+.demander {
+	display: none;
+	margin-bottom: 40px;
+}
+.demander-bouton {
+	float: right;
+	padding-right: 20px;
+}
+
+div.piste_texte {
+	word-break: break-word;
+}
+
+textarea {
+	width: 96%;
+	height: 5em;
+	margin-top: 6px;
+	margin-bottom: 8px;
+
+	-moz-border-radius: 6px; 
+ 	-webkit-border-radius: 6px; 
+  	border-radius: 6px; 
+  	
+  	border: 1px dashed #555;
+  	background-color: rgba(255, 255, 255, 0);
+}
