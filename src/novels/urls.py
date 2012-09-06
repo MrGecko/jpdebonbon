@@ -6,23 +6,35 @@ from django.contrib import admin
 admin.autodiscover()
 import settings
 
+slug_pattern = "[A-Za-z0-9]+(-[A-Za-z0-9]+)*"
+
 urlpatterns = patterns('',
-    # Examples:
-    url(r'^story/(?P<titre_url>\w+)/$', 'story.views.page'),
-    #reset une page
-    url(r'^story/(?P<titre_url>\w+)/reset/$', 'story.views.reset'),
-    url(r'^story/\w+/(?P<piste_id>\d+)/$', 'story.views.recit'),
+      
+    url(r'^$', "story.views.home"),
+                 
+    url(r'^home/$', "story.views.home"), #'django.contrib.auth.views.login', {'template_name': 'story/home.html'}),
+    url(r'^home/login/$', "story.views.login"),
+    url(r'^home/logout/$', 'django.contrib.auth.views.logout', { "next_page" : "/home/"}),
+
+    #afficher une page
+    url(r'^story/(?P<titre_url>%s)/$' % slug_pattern, 'story.views.page'),
+    #suivre une piste et obtenir le recit de destination
+    url(r'^story/(?P<titre_url>%s)/(?P<piste_id>\d+)/$' % slug_pattern, 'story.views.recit'),
+    url(r'^story/(?P<titre_url>%s)/description/$' % slug_pattern, 'story.views.premiere_description'),
+    
+    url(r'^story/(?P<titre_url>%s)/reset/$' % slug_pattern, 'story.views.reset'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-     url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', include(admin.site.urls)),
+    
 )
 
 if settings.DEBUG:
     urlpatterns += patterns('django.views.static',
-    (r'^media/(?P<path>.*)$',
+    (r'^(media|static)/(?P<path>.*)$',
         'serve', {
         'document_root': settings.MEDIA_ROOT,
         'show_indexes': True }),)

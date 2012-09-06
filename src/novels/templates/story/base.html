@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+	<link href='http://fonts.googleapis.com/css?family=Alice' rel='stylesheet' type='text/css'> 
+	
+	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}styles/jquery.qtip.min.css"/>   
+	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}styles/entete.css"/>
+	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}styles/base.css"/>
+	{% block css %}
+	{% endblock css %}
+	
+	<script  type="text/javascript" src="{{ MEDIA_URL }}scripts/jquery-1.6.2.min.js"></script>
+	<script  type="text/javascript" src="{{ MEDIA_URL }}scripts/jquery.qtip.min.js"></script>
+	<script  type="text/javascript" src="{{ MEDIA_URL }}scripts/entete.js"></script>
+	
+	{% block javascript %}
+	{% endblock javascript %}
+</head>
+
+	<body>
+		{% block entete %}
+		<div id="en-tete">
+			<div id="home"></div>
+			
+			<div id="login-container">
+				{% if not user.is_authenticated %}
+					<form method="post" action="/home/login/">
+					{% csrf_token %}
+					Nom :<input type="text" id="username" name="username"/>
+					Mot de passe : <input type="password" id="password"  name="password"/>
+						<input id="submit" type="submit" value="Connexion">
+						<input type="hidden" name="next" value="{{current_url}}"/>
+					</form>
+				{% else %}
+					{{ user.username }}
+				{% endif %}
+			</div>
+			{% if user.is_authenticated %}
+				<h1>{% block h1 %}Histoires interactives{% endblock h1 %} </h1>
+				<div id="logout"></div>
+			{% else %}
+				{% if message %}
+					<div class="please-login">{{ message }}</div>	
+				{% endif %}			
+			{% endif %}
+		</div>
+		{% endblock entete %}
+		
+		<div id="container">
+			<img id="book" src="{{ MEDIA_URL }}images/book.svg" type="image/svg+xml"/>
+			
+			<div id="content">
+				{% block content %} {% endblock content %}
+			</div>
+	
+			<div id="footer">
+				{% block footer %} {% endblock footer %}			
+			</div>
+		</div>
+	</body>
+</html>
+

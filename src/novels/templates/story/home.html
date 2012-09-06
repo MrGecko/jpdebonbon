@@ -1,0 +1,55 @@
+{% extends "story/base.html" %}
+
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}styles/home.css">	
+{% endblock css %}
+
+{% block javascript %}
+	<script  type="text/javascript" src="{{ MEDIA_URL }}scripts/home.js"></script>	
+{% endblock javascript %}
+
+
+
+{% block content %} 
+
+	<div id="pages-container">
+		<p id="titre">Bienvenue</p>
+		<p id="welcome">Ceci est un site web get it without passing the 'request' get it without p
+		assing the 'request'get it without passing the 'request'get it without passing the 'request'get it without passing the 'request'
+		</p>
+		<div id="pages">
+			<ul> 
+				{% if pages_anonymes|length > 0 %}
+				<p>Toutes les histoires</p>
+				{% for page in pages_anonymes %}
+					<li><a class="page" href="/story/{{page.titre_url}}" name="{{page.titre_url}}">{{ page.titre }}</a></li>
+				{% endfor %}
+				{% endif %}
+			</ul>
+			{% if mes_pages %}
+			<ul> 
+				<p>Mes histoires</p>
+				{% for page in mes_pages %}
+				<li><a class="page" href="/story/{{page.titre_url}}" name="{{page.titre_url}}">{{ page.titre }}</a></li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+		</div>
+		
+			<p id="notice">
+		 get it without passing the 'request' variable to the template? – dotty May 21 '10 at 13:39
+I believe request is always passed to the template... if not, render_to_response('template.html',{},context_instance=RequestContext(request)) .. at that point, request is definitely passed in. – Brant May 21 '10 at 13:40
+Bascially i'm making a 'logout' function which redirects back to the page they were on when a 'logout' button is clicked. I was going to append the current URL to the query string. – dotty May 21 '10 at 13:43
+			</p>
+			<p id="recit"> </p>
+
+	
+	</div>
+		
+{% endblock content %}
+
+{% block footer %}
+
+{% endblock footer %}
+

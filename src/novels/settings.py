@@ -10,15 +10,14 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-     ('mrgecko', 'mrgecko.master@gmail.com'),
+     ('mrgecko', 'pilla.julien@gmail.com'),
 )
 
 MANAGERS = ADMINS
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/Users/Gecko/Documents/workspace/novels/src/novels/sqlite.db', # Or path to database file if using sqlite3.
+        'NAME': BASE_PATH + '/sqlite.db', # Or path to database file if using sqlite3.
         'USER': '', # Not used with sqlite3.
         'PASSWORD': '', # Not used with sqlite3.
         'HOST': '', # Set to empty string for localhost. Not used with sqlite3.
@@ -112,11 +111,14 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'novels.urls'
 
+LOGIN_URL = '/home/'
+LOGIN_REDIRECT_URL = '/home/'
+
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    "/Users/gecko/Documents/workspace/novels/src/novels/templates"
+    BASE_PATH + "/templates/"
 )
 
 INSTALLED_APPS = (
@@ -126,7 +128,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    #'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
      'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -156,3 +158,5 @@ LOGGING = {
         },
     }
 }
+
+FORCE_SCRIPT_NAME = ''

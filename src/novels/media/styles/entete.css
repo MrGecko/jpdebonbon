@@ -1,0 +1,92 @@
+
+#en-tete {
+	width: 100%;
+	height: 40px;
+	position: fixed;
+	top: 0px;
+	z-index: 1000000;
+	
+	background-color: #FFF; //#328A95;
+	color: #444;
+	-moz-box-shadow: 0px 0px 8px #333;  
+  	-webkit-box-shadow: 0px 0px 8px #333;  
+  	box-shadow: 0px 0px 8px #333; 
+  	min-width: 1048px;
+	opacity: 0.98;
+  	//font-family: "Old Standard TT", georgia, times, serif;
+  	font-family: 'Alice', serif;
+}
+#en-tete > img:hover{
+	cursor: pointer;
+}
+
+
+#section:hover{
+	cursor: pointer;
+}
+
+#home  {
+	background-image: url("../images/home.png");
+	width: 24px;
+	height: 22px;
+	float: left;
+	margin: 6px;
+	margin-left: 12px;
+}
+#home:hover {
+	cursor: pointer;
+}
+
+#login-container {
+	float: left;
+	font-size: 18px;
+	padding: 8px;	
+}
+
+.please-login {
+	padding-top: 0px;
+	width: 50%;
+	padding: 8px;
+	float: left;
+	font-size: 18px;	
+}
+#submit {
+	color: #FFF;
+	background: #AAA;
+}
+#submit:hover {
+	cursor: pointer;
+	background: #CCC;
+}
+
+#logout {
+	background-image: url("../images/logout.png");
+	width: 24px;
+	height: 25px;
+	position: absolute;
+	right: 12px;
+	top: 0px;
+	float: right;
+	margin-top: 6px;
+}
+#logout:hover {
+	cursor: pointer;
+}
+
+h1 {
+	margin: auto;
+	text-align: center;
+	padding-top: 0px;
+	font-size: 32px;
+	//position: absolute;
+	width: 50%;
+}
+input {
+	-moz-border-radius: 3px; 
+ 	-webkit-border-radius: 3px; 
+  	border-radius: 3px; 
+  	width: 80px;
+  	border: 1px solid #CCC;
+  	margin-right: 12px;
+  	margin-left: 8px;
+}

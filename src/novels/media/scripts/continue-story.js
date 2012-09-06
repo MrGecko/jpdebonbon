@@ -36,7 +36,7 @@ $(document).ajaxSend(function(event, xhr, settings) {
 	    	var cookie = getCookie('csrftoken');
 	        xhr.setRequestHeader("X-CSRFToken", cookie);
 	    }
-	});
+});
 	
 
 $(document).ready(function(){
@@ -50,12 +50,13 @@ $(document).ready(function(){
 				text: 'Avoir bonne ou mauvaise réputation peut influer sur le déroulement de l\'histoire.',
 			},
 			position: {
-				my: "left center",
-				at: "right center"
+				my: "bottom center",
+				at: "top center"
 			},
 			style: {
 				classes: 'ui-tooltip-blue ui-tooltip-shadow',
-				width: "200"
+				width: "200",
+				'font-size': 20
 			}
 		});
 		
@@ -69,17 +70,19 @@ $(document).ready(function(){
 			},
 			style: {
 				classes: 'ui-tooltip-blue ui-tooltip-shadow',
+				'font-size': 20
 			}
 		});
 	}
 
 	
 	function binder_fleche_derouler() {
-		var recit = $(this).parent();
-		var ul = $(recit).find("ul")[0];
+		var ul = $("ul").last();
 		var fleche = this;
 		$(ul).slideDown('slow', function() {
-			$(fleche).delay(200).slideUp("slow");
+			$(fleche).delay(200).slideUp("slow").queue(function(){
+				$('html,body').animate({scrollTop: $("#footer").position().top, },'slow');
+			});
 		});
 	}
 	
@@ -88,7 +91,9 @@ $(document).ready(function(){
 		if ($(this).hasClass("piste_ouverte")) {
 			var demander = $(this).find(".demander");
 			if (demander.length > 0) {
-				$(demander[0]).slideDown('slow', function() {});
+				$(demander[0]).slideDown('slow', function() {
+					$('html,body').animate({scrollTop: $(demander).position().top, },'slow');
+				});
 			}
 			else {
 				var mon_theme = ($(this).hasClass("theme_1") ? "theme_1" : "theme_2"); 
@@ -106,89 +111,102 @@ $(document).ready(function(){
 	}
 	
 	
-	function continuerHistoire(index, mon_theme, ma_reponse) {
-		$.ajax({
-			  url: './'+index+"/",
-			  type: "POST",
-			  crossDomain: true,
-			  data : {"theme" : mon_theme, "reponse" :  ma_reponse},
-			  success: function(data) {		
-				  var recit = $("#en-tete-milieu-bas").prev();
+	
+	//=============================================================================================
+	//=============================================================================================
+	recuperer_recit_en_cours = false;
 
-				  //fermer les pistes du recit
-				  recit.find("li").each(function(){
-					  if ($(this).find(":input[type='hidden']").val() == index)	{					  
-						  $(this).unbind('click').removeClass();
-						  
-						  //faire disparaitre le textarea et ins�rer son texte dans le <li>
-						  var demander = $(this).find(".demander");
-						  if (demander.length > 0) {
-							  $(demander).find("textarea").fadeOut();
-							  demander.delay(300).slideUp();
-							  var text = $(demander).find("textarea").val();
-							  if (text.length > 0)
-								  $(demander).prev().delay(300).append("<br>"+text);
+	function continuerHistoire(index, mon_theme, ma_reponse) {
+		if (!recuperer_recit_en_cours) {
+			$.ajax({
+				  url: './'+index+"/",
+				  type: "POST",
+				  crossDomain: true,
+				  data : {"theme" : mon_theme, "reponse" :  ma_reponse},
+				  beforeSend: function(jqXHR, settings) {
+					  recuperer_recit_en_cours = true; 
+				  },
+				  complete: function(jqXHR, textstatus) {
+					  recuperer_recit_en_cours = false;
+				  },
+				  success: function(data) {		
+					  var last_ul = $("ul").last();
+
+					  //fermer les pistes du recit
+					  $(last_ul).find("li").each(function(){
+						  if ($(this).find(":input[type='hidden']").val() == index)	{					  
+							  $(this).unbind('click').removeClass();
+							  
+							  //faire disparaitre le textarea et insérer son texte dans le <li>
+							  var demander = $(this).find(".demander");
+							  if (demander.length > 0) {
+								  $(demander).find("textarea").fadeOut();
+								  demander.delay(300).slideUp();
+								  var text = $(demander).find("textarea").val();
+								  if (text.length > 0)
+									  $(demander).prev().delay(300).append("<br>"+text);
+							  }
 						  }
+						  else
+							  $(this).delay(200).slideUp();
+					  }); 
+					  
+					  //ajouter le recit suivant le fait apparaitre et rétablit les bindings
+					  $(last_ul).after(data);
+					  $("p").last().hide();
+					  if (!$("p").last().hasClass("attente")) {
+						  $(".publication_date").last().hide();
 					  }
-					  else
-						  $(this).delay(200).slideUp();
-				  }); 
-				  
-				  //ajouter le recit suivant le fait apparaitre et r�tablit les bindings
-				  $("#en-tete-milieu-bas").before(data);
-				  var new_recit = $("#en-tete-milieu-bas").prev();
-				  $(new_recit).find("li").click(binder_li);
-				  $(new_recit).find(".fleche_derouler").click(binder_fleche_derouler);	
-				  $(new_recit).find(".demander-bouton").click(binder_demander_bouton);	
-				  
-				  var txtarea = $(new_recit).find("textarea");
-				  $(txtarea).closest("li").hover(
-				      function(){ //handlerIn
-				    	  $(txtarea).css("color", "#EEE"); 
-					  }, 
-					  function(){ //handlerOut
-					      $(txtarea).css("color", "black"); 
-					  } 
-				  );
-					
-				  binder_tooltips();
-				  
-				  $(new_recit).hide().delay(520).fadeIn().queue(function(){
-						$('html,body').delay(50).animate({scrollTop: $(new_recit).position().top, },'slow');
-				  });
-					
-			  }
-		});
+					  
+					  $("ul").last().find("li").click(binder_li);
+					  $(".fleche_derouler").last().click(binder_fleche_derouler);	
+					  $(".demander-bouton").last().click(binder_demander_bouton);	
+					  
+					  var txtarea = $("textarea").last();//find("textarea");
+					  $(txtarea).closest("li").hover(
+					      function(){ //handlerIn
+					    	  $(txtarea).css("color", "#EEE"); 
+						  }, 
+						  function(){ //handlerOut
+						      $(txtarea).css("color", "black"); 
+						  } 
+					  );
+						
+					  binder_tooltips();
+					  
+					  $(".publication_date").last().delay(300).fadeIn();
+					  $("p").last().delay(520).slideDown().queue(function(){
+						  	$(".publication_date").last().fadeIn();
+							$('html,body').delay(50).animate({scrollTop: $(this).position().top, },'slow');
+					  });
+					  
+				  }
+			});
+		}
+
 	}
 	
 	$("li").click(binder_li);
 	$(".fleche_derouler").click(binder_fleche_derouler);
 	$(".demander-bouton").click(binder_demander_bouton);
 	
-	$("#colonne-milieu").delay(100).fadeIn().queue(function(){
-
-		$("#scroll_down").click(function(){
-			var new_recit = $("#en-tete-milieu-bas").prev();
-			$('html,body').delay(120).animate({scrollTop: $(new_recit).position().top, },'slow');
-		})
-		
-		$("#scroll_up").click(function(){
-			$('html,body').delay(120).animate({scrollTop: $("h1").position().top, },'slow');
-		})
+	$("#colonne-milieu").delay(160).fadeIn().queue(function(){
+		$('html,body').animate({scrollTop: $("#footer").position().top, },'slow');
 	});
+
 	
 	$("textarea").each( function(){
 		var txtarea = this;
 	    $(this).closest('li').hover(
 	        function(){ //handlerIn
-	        	$(txtarea).css("color", "#EEE"); 
+	        	$(txtarea).css({"color": "#EEE", "border-color" : "#EEE"}); 
 	        }, 
 	        function(){ //handlerOut
-	        	$(txtarea).css("color", "black"); 
+	        	$(txtarea).css({"color": "black", "border-color" : "#555"}); 
 	        } 
 		);
 	});
-	
+	/*
 	$("#colonne-milieu").hover(
 			function(){
 				$(".karma").fadeIn();
@@ -197,7 +215,6 @@ $(document).ready(function(){
 				$(".karma").fadeOut();
 			}
 	);
-	
+	*/
 	binder_tooltips();    
-
 });

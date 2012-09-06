@@ -1,4 +1,4 @@
-<div class="recit">
+
 	<span class="publication_date publication_date_{{piste_theme}}">
 		{{ recit.publication_date|date:"D d N Y" }} 
 	</span>
@@ -27,7 +27,7 @@
 		    	<li>
 		    		<input type="hidden" value="{{piste.id}}"/>
 		        	<span>   
-			        	<div>
+			        	<div class="piste_texte">
 			        	* {{ piste.texte }} 
 			        	{% if piste.demander %}
 			        		{% if piste.reponse|length > 0 %} 
@@ -56,6 +56,5 @@
     	{% endif %}  	
     {% endfor %}
     </ul>   
-   </div>
 
 

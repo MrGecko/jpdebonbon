@@ -1,119 +1,31 @@
 
-html, body {
-	margin: 0;
-	padding: 0;
-	height: 100%;
-}
-body {	
-	background-color: #555;	
-	background-image: url("../images/papier-ondule3.jpg");
-}
-@font-face { 
-   	font-family: 'League_Gothic'; 
-   	src: local('League_Gothic'), url('../fonts/League_Gothic.otf') format('truetype'); 
-}
-
-@font-face { 
-   	font-family: 'Lmroman'; 
-   	src: local('Lmroman'), url('../fonts/lmroman10-regular.otf') format('truetype'); 
-}
-
-#en-tete {
-	width: 100%;
-	height: 50px;
-	position: fixed;
-	z-index: 1000000;
-	background-color: #328A95;
-	
-	-moz-box-shadow: 0px 0px 8px #333;  
-  	-webkit-box-shadow: 0px 0px 8px #333;  
-  	box-shadow: 0px 0px 8px #333; 
-  	
-  	//font-family: "Old Standard TT", georgia, times, serif;
-}
-#en-tete > img:hover{
-	cursor: pointer;
-}
-#scroll_up {
-	position: absolute;
-	right: 20px;
-	top: 4px;
-}
-#scroll_down {
-	position: absolute;
-	right: 80px;
-	top: 4px;
-}
-
-
-h1 {
-	margin: auto;
-	text-align: center;
-	padding-top: 0px;
-	color: #FFF;
-	font-size: 42px;
-}
-
-#colonne-milieu {
-	z-index: 50;
-	position: relative;
-    min-height: 100%;
-	width: 65%;
-	margin: auto;
-	padding-left: 42px;
-	padding-right: 42px;
-	padding-top: 50px;
-	border: 1px none #CCC;
-	border-style: none solid none none;
-	
-	//-moz-border-radius: 6px; 
- 	//-webkit-border-radius: 6px; 
-  	//border-radius: 6px; 
-  	
-  	-moz-box-shadow: 1px 3px 10px #333;  
-  	-webkit-box-shadow: 3px 1px 10px #333;  
-  	box-shadow: 1px 3px 10px #333; 
-  	
-  	background-color: rgba(255, 255, 255, 0.45);
-
-}
-
-#en-tete-milieu-haut {
-	width: 100%;
-	height: 32px;
-	margin-bottom: 10px;
-}
-
-#en-tete-milieu-bas {
-	width: 100%;
-	height: 80px;
-}
-
-
-
 .recit {
-	padding-bottom: 14px;
-	margin-bottom: 16px;
-	margin-top: 0px;
-	margin-left: 12px;
-	margin-right: 12px;
-	
-	background-color: #DDDDDD;
-
-	//border: 1px none #EEEEEE;
-	//border-style: solid solid none none;
+	//position: relative;
+	width: 75%;
+	top: 140px;
+	margin: auto;
+	padding: 20px;
+	padding-top: 32px;
+	min-height: 180px;
+	background-color: #FFF;
+	opacity: 0.92;
 	
 	-moz-border-radius: 6px; 
  	-webkit-border-radius: 6px; 
   	border-radius: 6px; 
   	
-  	-moz-box-shadow: 1px 3px 10px #333;  
-  	-webkit-box-shadow: 3px 1px 10px #333;  
-  	box-shadow: 1px 3px 10px #333; 
+  	-moz-box-shadow: 3px 6px 12px #333;  
+  	-webkit-box-shadow: 3px 6px 12px #333;  
+  	box-shadow: 3px 6px 12px #333; 
   	
-	font-family: "Lmroman"; 
-	background: transparent url("../images/cahier.png") top left;
+  	text-align: justify;
+	color: #222;
+
+	
+	font-family: 'StMarieThin'; 
 	font-size: 1.3em;
+	line-height: 1.4;
+	
 	
 }
 
@@ -124,7 +36,7 @@ h1 {
 	text-align: justify;
 	margin-bottom: 10px;
 	margin-top: 10px;
-	
+	text-indent: 50px;
 }
 
 .attente {
@@ -206,12 +118,18 @@ ul {
 	margin-top: 10px;
 }
 li {
-	padding-left: 48px;
+	padding-left: 32px;
 	padding-top: 4px;
 	padding-bottom: 4px;
 	padding-right: 32px;
 	
 	text-align: justify;
+	//text-indent: 50px;
+	line-height: 1.4;
+	
+	-moz-border-radius: 4px; 
+ 	-webkit-border-radius: 4px; 
+  	border-radius: 4px; 
 }
 li.piste_ouverte:hover {
 	cursor: pointer;
@@ -225,19 +143,20 @@ li.piste_ouverte:hover {
 }
 .demander-bouton {
 	float: right;
-	padding-right: 20px;
+	padding-right: 0px;
 }
 
 div.piste_texte {
 	word-break: break-word;
+	text-indent: 50px;
 }
 
 textarea {
-	width: 96%;
-	height: 5em;
-	margin-top: 6px;
+	width: 100%;
+	height: 4.8em;
+	margin-top: 12px;
 	margin-bottom: 8px;
-
+	font-size: 1em;
 	-moz-border-radius: 6px; 
  	-webkit-border-radius: 6px; 
   	border-radius: 6px; 

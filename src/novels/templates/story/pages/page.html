@@ -1,39 +1,33 @@
-<!DOCTYPE html>
-<html lang="fr">
+{% extends "story/base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}styles/page.css">
-	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}styles/jquery.qtip.min.css"">
-	
-	<script  type="text/javascript" src="{{ MEDIA_URL }}scripts/jquery-1.6.2.min.js"></script>
-	<script  type="text/javascript" src="{{ MEDIA_URL }}scripts/jquery.qtip.min.js"></script>	
-	<script  type="text/javascript" src="{{ MEDIA_URL }}scripts/continue-story.js"></script>
-</head>
 
-	<body>
-		<div id="en-tete">
-			<h1>Une histoire entre {{page.joueur}} et {{page.proprietaire}}</h1>
-			<img src="{{ MEDIA_URL }}images/scroll_down.png" id="scroll_down"/>
-			<img src="{{ MEDIA_URL }}images/scroll_up.png" id="scroll_up"/>
-		</div>
-		<div id="colonne-milieu">
-			<div id="en-tete-milieu-haut">
-				
-			</div>
-			{% if page.premier_recit %}
-				{% for recit in recits  %}
-					{% cycle "theme_1" "theme_2" as piste_theme silent %}
-					{% if recit %}
-						{% include "story/pages/recit.html" %}
-					{% else %}
-						{% include "story/pages/attente.html" %}
-					{% endif %}
-			    {% endfor %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}styles/page.css">
+{% endblock css %}
+
+{% block javascript %}
+<script  type="text/javascript" src="{{ MEDIA_URL }}scripts/continue-story.js"></script>
+{% endblock javascript %}
+
+
+{% block h1 %} 
+	{{page.titre}} 
+{% endblock h1%}
+
+{% block content %} 
+<div id="colonne-milieu">
+	<div class="recit">
+
+	{% if page.premier_recit %}
+		{% for recit in recits  %}
+			{% cycle "theme_1" "theme_2" as piste_theme silent %}
+			{% if recit %}
+				{% include "story/pages/recit.html" %}
+			{% else %}
+				{% include "story/pages/attente.html" %}
 			{% endif %}
-			<div id="en-tete-milieu-bas"></div>
-		</div>	
-	
-	</body>
-</html>
-
+		{% endfor %}
+	{% endif %}
+	</div>
+</div>	
+{% endblock content %}
