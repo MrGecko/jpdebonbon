@@ -10,7 +10,7 @@
 		<span class="karma karma_points karma_points_evil">{{recit.karma}}</span>
 	{% endif %}
 	
-	<p class="description">{{ recit.description }} </p>
+	<p class="description">{{ recit.description|safe }} </p>
 	{% if recit.nombre_pistes > 0 and not recit.piste_choisie %}
 		<div class="fleche_derouler {{piste_theme}}"></div>
 	{% endif %}

@@ -6,7 +6,7 @@
 }
 
 #content{
-		padding-top: 120px;
+		padding-top: 90px;
 }
 
 #container {
@@ -21,9 +21,8 @@ html, body {
 	height: 100%;
 }
 body {
-    min-width: 1024px;
-    background: #555;
-    //background: url("../images/book.svg") no-repeat #555 bottom left;
+    background: #CBCBCB;
+    /*background: url("../images/book.svg") no-repeat #555 bottom left;*/
 }
 #book {
 	bottom: 15px;

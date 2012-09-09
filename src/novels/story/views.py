@@ -90,7 +90,9 @@ def recit(request, titre_url, piste_id):
         page_courante = Page.objects.get(titre_url=titre_url, joueur__username="anonyme")
     #if piste.recit_source.page.joueur is not request.user:
     #    HttpResponseRedirect("/home/?etat=incorrect") 
-    print page_courante    
+    print page_courante
+    recit_destination = None
+
     if piste.recit_source.page is not page_courante:
         #dupliquer le récit pour ce joueur
         if piste.recit_destination is not None:
@@ -104,7 +106,7 @@ def recit(request, titre_url, piste_id):
     #choisir la piste cliquée
     #for p in piste.recit_source.pistes():
     #    p.choix = False
-    print "dest : ", recit_destination
+    #print "dest : ", recit_destination
     
     if piste.demander and request.method == "POST":
         if "reponse" in request.POST:

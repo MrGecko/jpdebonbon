@@ -29,6 +29,9 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+
+    #ckeditor is a WYSIWYG editor
+    (r'^ckeditor/', include('ckeditor.urls')),
     
 )
 

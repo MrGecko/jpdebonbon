@@ -81,7 +81,7 @@ $(document).ready(function(){
 		var fleche = this;
 		$(ul).slideDown('slow', function() {
 			$(fleche).delay(200).slideUp("slow").queue(function(){
-				$('html,body').animate({scrollTop: $("#footer").position().top, },'slow');
+				$('html,body').animate({scrollTop: $("#footer").position().top },'slow');
 			});
 		});
 	}
@@ -92,7 +92,7 @@ $(document).ready(function(){
 			var demander = $(this).find(".demander");
 			if (demander.length > 0) {
 				$(demander[0]).slideDown('slow', function() {
-					$('html,body').animate({scrollTop: $(demander).position().top, },'slow');
+					$('html,body').animate({scrollTop: $(demander).position().top },'slow');
 				});
 			}
 			else {
@@ -114,75 +114,73 @@ $(document).ready(function(){
 	
 	//=============================================================================================
 	//=============================================================================================
-	recuperer_recit_en_cours = false;
+	var recuperer_recit_en_cours = false;
 
 	function continuerHistoire(index, mon_theme, ma_reponse) {
-		if (!recuperer_recit_en_cours) {
-			$.ajax({
-				  url: './'+index+"/",
-				  type: "POST",
-				  crossDomain: true,
-				  data : {"theme" : mon_theme, "reponse" :  ma_reponse},
-				  beforeSend: function(jqXHR, settings) {
-					  recuperer_recit_en_cours = true; 
-				  },
-				  complete: function(jqXHR, textstatus) {
-					  recuperer_recit_en_cours = false;
-				  },
-				  success: function(data) {		
-					  var last_ul = $("ul").last();
+		if (!recuperer_recit_en_cours) $.ajax({
+            url:'./' + index + "/",
+            type:"POST",
+            crossDomain:true,
+            data:{"theme":mon_theme, "reponse":ma_reponse},
+            beforeSend:function (jqXHR, settings) {
+                recuperer_recit_en_cours = true;
+            },
+            complete:function (jqXHR, textstatus) {
+                recuperer_recit_en_cours = false;
+            },
+            success:function (data) {
+                var last_ul = $('ul').last();
 
-					  //fermer les pistes du recit
-					  $(last_ul).find("li").each(function(){
-						  if ($(this).find(":input[type='hidden']").val() == index)	{					  
-							  $(this).unbind('click').removeClass();
-							  
-							  //faire disparaitre le textarea et insérer son texte dans le <li>
-							  var demander = $(this).find(".demander");
-							  if (demander.length > 0) {
-								  $(demander).find("textarea").fadeOut();
-								  demander.delay(300).slideUp();
-								  var text = $(demander).find("textarea").val();
-								  if (text.length > 0)
-									  $(demander).prev().delay(300).append("<br>"+text);
-							  }
-						  }
-						  else
-							  $(this).delay(200).slideUp();
-					  }); 
-					  
-					  //ajouter le recit suivant le fait apparaitre et rétablit les bindings
-					  $(last_ul).after(data);
-					  $("p").last().hide();
-					  if (!$("p").last().hasClass("attente")) {
-						  $(".publication_date").last().hide();
-					  }
-					  
-					  $("ul").last().find("li").click(binder_li);
-					  $(".fleche_derouler").last().click(binder_fleche_derouler);	
-					  $(".demander-bouton").last().click(binder_demander_bouton);	
-					  
-					  var txtarea = $("textarea").last();//find("textarea");
-					  $(txtarea).closest("li").hover(
-					      function(){ //handlerIn
-					    	  $(txtarea).css("color", "#EEE"); 
-						  }, 
-						  function(){ //handlerOut
-						      $(txtarea).css("color", "black"); 
-						  } 
-					  );
-						
-					  binder_tooltips();
-					  
-					  $(".publication_date").last().delay(300).fadeIn();
-					  $("p").last().delay(520).slideDown().queue(function(){
-						  	$(".publication_date").last().fadeIn();
-							$('html,body').delay(50).animate({scrollTop: $(this).position().top, },'slow');
-					  });
-					  
-				  }
-			});
-		}
+                //fermer les pistes du recit
+                $(last_ul).find("li").each(function () {
+                    if ($(this).find(":input[type='hidden']").val() == index) {
+                        $(this).unbind('click').removeClass();
+
+                        //faire disparaitre le textarea et insérer son texte dans le <li>
+                        var demander = $(this).find(".demander");
+                        if (demander.length > 0) {
+                            $(demander).find("textarea").fadeOut();
+                            demander.delay(300).slideUp();
+                            var text = $(demander).find("textarea").val();
+                            if (text.length > 0)
+                                $(demander).prev().delay(500).append("<br><br>" + text);
+                        }
+                    }
+                    else
+                        $(this).delay(200).slideUp();
+                });
+
+                //ajouter le recit suivant le fait apparaitre et rétablit les bindings
+                $(last_ul).after(data);
+                $('p').last().hide();
+                if (!$('p').last().hasClass("attente")) {
+                    $('.publication_date').last().hide();
+                }
+
+                $("ul").last().find("li").click(binder_li);
+                $(".fleche_derouler").last().click(binder_fleche_derouler);
+                $(".demander-bouton").last().click(binder_demander_bouton);
+
+                var txtarea = $("textarea").last();
+                $(txtarea).closest("li").hover(
+                    function () { //handlerIn
+                        $(txtarea).css("color", "#EEE");
+                    },
+                    function () { //handlerOut
+                        $(txtarea).css("color", "black");
+                    }
+                );
+
+                binder_tooltips();
+
+                $(".publication_date").last().delay(500).fadeIn();
+                $("p").last().delay(880).slideDown().queue(function () {
+                    $(".publication_date").last().fadeIn();
+                    $('html,body').delay(200).animate({scrollTop:$(this).position().top, }, 'slow');
+                });
+
+            }
+        });
 
 	}
 	
@@ -190,9 +188,7 @@ $(document).ready(function(){
 	$(".fleche_derouler").click(binder_fleche_derouler);
 	$(".demander-bouton").click(binder_demander_bouton);
 	
-	$("#colonne-milieu").delay(160).fadeIn().queue(function(){
-		$('html,body').animate({scrollTop: $("#footer").position().top, },'slow');
-	});
+	$('#colonne-milieu').delay(160).fadeIn();
 
 	
 	$("textarea").each( function(){
@@ -206,15 +202,6 @@ $(document).ready(function(){
 	        } 
 		);
 	});
-	/*
-	$("#colonne-milieu").hover(
-			function(){
-				$(".karma").fadeIn();
-			},
-			function(){
-				$(".karma").fadeOut();
-			}
-	);
-	*/
+
 	binder_tooltips();    
 });

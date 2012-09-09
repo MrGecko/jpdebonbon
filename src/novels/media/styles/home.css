@@ -29,8 +29,8 @@
 	float: right;
 	margin-top: 30px;
 	padding-right: 5%;
-	
-	font-family: 'StMarieThin';
+
+    font-family: 'Fanwood Text', serif;
 	font-size: 1.1em;
 	text-indent: 50px;
 	line-height: 1.4;
@@ -46,21 +46,20 @@
 	margin-left: 8px;
 	font-size: 34px;
 	margin-top: 10px;
-	font-family: 'Alice', serif;
+    font-family: 'Fanwood Text', serif;
 }
 #welcome {
 	color: #222;
-	margin: 8px;
-	text-align: justify;
-	margin-bottom: 20px;
-	font-family: 'Alice', serif;
+    text-align: justify;
+    margin: 8px;
+    font-family: 'Fanwood Text', serif;
 }
 
 
 #pages {
 	float: left;
 	width: 35%;
-	font-family: 'Alice', serif;
+    font-family: 'Fanwood Text', serif;
 }
 
 a.page {
@@ -83,11 +82,8 @@ ul > p {
 	margin-bottom: 12px;
 }
 li {
-	padding-left: 32px;
-	padding-top: 6px;
-	padding-bottom: 6px;
-	padding-right: 32px;
-	text-align: justify;
+    padding: 6px 32px;
+    text-align: justify;
 	
 	-moz-border-radius: 4px; 
  	-webkit-border-radius: 4px; 

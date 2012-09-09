@@ -76,6 +76,10 @@ STATIC_URL = '/static/'
 # Examples: "http://foo.com/static/admin/", "/static/admin/".
 ADMIN_MEDIA_PREFIX = '/static/admin/'
 
+CKEDITOR_UPLOAD_PATH = "media/uploads"
+CKEDITOR_UPLOAD_PREFIX = "http://localhost:8000/media/uploads/"
+
+
 # Additional locations of static files
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
@@ -121,18 +125,23 @@ TEMPLATE_DIRS = (
     BASE_PATH + "/templates/"
 )
 
+
+
 INSTALLED_APPS = (
+
+    'ckeditor',
+
     'south', #pour la migration
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
-    #'django.contrib.staticfiles',
+    'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
      'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
-    #'django.contrib.admindocs',
+    'django.contrib.admindocs',
     'story',
 )
 

@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 #import datetime
 
+from ckeditor.fields import RichTextField
 
 
 class Page(models.Model):
@@ -16,7 +17,7 @@ class Page(models.Model):
         unique_together = ("titre_url", "proprietaire", "joueur")
     
     def __unicode__(self):
-        return "%s (%s/%s)" % (self.titre, self.proprietaire.username, self.joueur.username)
+        return "Page %i (%s) Auteur: %s / Joueur: %s" % (self.id, self.titre, self.proprietaire.username, self.joueur.username)
 
     def recits(self):
         if not self.premier_recit.disponible or self.premier_recit is None:
@@ -39,7 +40,7 @@ class Page(models.Model):
     
 class Recit(models.Model):
     page = models.ForeignKey(Page)
-    description = models.TextField()
+    description = RichTextField()#models.TextField()
     publication_date = models.DateTimeField("Date de publication")
     karma = models.IntegerField("Karma", default=0)
     disponible = models.BooleanField("Est disponible", False)
@@ -63,7 +64,7 @@ class Recit(models.Model):
             desc = self.description[:139]
         else:
             desc = self.description
-        return "%s - %s" % (self.page, desc) 
+        return "%s - Recit %i: %s" % (self.page, self.id, desc[:60])
       
     def piste_choisie(self):
         return Piste.objects.filter(recit_source=self, choix=True)

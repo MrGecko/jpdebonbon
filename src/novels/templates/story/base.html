@@ -8,10 +8,13 @@
 	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}styles/jquery.qtip.min.css"/>   
 	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}styles/entete.css"/>
 	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}styles/base.css"/>
+
+    <link href='http://fonts.googleapis.com/css?family=Fanwood+Text:400,400italic' rel='stylesheet' type='text/css'>
+
 	{% block css %}
 	{% endblock css %}
 	
-	<script  type="text/javascript" src="{{ MEDIA_URL }}scripts/jquery-1.6.2.min.js"></script>
+	<script  type="text/javascript" src="{{ MEDIA_URL }}scripts/jquery-1.8.1.min.js"></script>
 	<script  type="text/javascript" src="{{ MEDIA_URL }}scripts/jquery.qtip.min.js"></script>
 	<script  type="text/javascript" src="{{ MEDIA_URL }}scripts/entete.js"></script>
 	
@@ -49,8 +52,7 @@
 		{% endblock entete %}
 		
 		<div id="container">
-			<img id="book" src="{{ MEDIA_URL }}images/book.svg" type="image/svg+xml"/>
-			
+
 			<div id="content">
 				{% block content %} {% endblock content %}
 			</div>

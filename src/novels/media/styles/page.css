@@ -1,32 +1,30 @@
 
 .recit {
 	//position: relative;
-	width: 75%;
+	width: 900px;
 	top: 140px;
 	margin: auto;
-	padding: 20px;
-	padding-top: 32px;
-	min-height: 180px;
-	background-color: #FFF;
-	opacity: 0.92;
-	
-	-moz-border-radius: 6px; 
- 	-webkit-border-radius: 6px; 
-  	border-radius: 6px; 
-  	
-  	-moz-box-shadow: 3px 6px 12px #333;  
-  	-webkit-box-shadow: 3px 6px 12px #333;  
-  	box-shadow: 3px 6px 12px #333; 
-  	
-  	text-align: justify;
-	color: #222;
+    padding: 20px;
+    min-height: 180px;
+	background-color: #F4F4F4;
+	//opacity: 0.92;
 
-	
-	font-family: 'StMarieThin'; 
-	font-size: 1.3em;
-	line-height: 1.4;
-	
-	
+	-moz-border-radius: 2px;
+ 	-webkit-border-radius: 2px;
+  	border-radius: 2px;
+
+  	-moz-box-shadow: 3px 6px 12px #333;
+  	-webkit-box-shadow: 3px 6px 12px #333;
+  	text-align: justify;
+	color: #171717;
+
+
+    font-family: 'Fanwood Text', serif;
+
+    font-size: 1em;
+	line-height: 1.5em;
+
+
 }
 
 .description {
@@ -40,15 +38,15 @@
 }
 
 .attente {
-	padding-top: 16px;	
+	padding-top: 16px;
 }
 
 .publication_date {
 	width: 160px;
 	margin-left: 12px;
 	padding-top: 12px;
-	
-	font-family: League_Gothic, "Helvetica Neue", arial, helvetica;
+
+	font-family: League_Gothic, "Helvetica Neue", arial, helvetica,serif;
 	font-size: 16px;
 	text-transform: uppercase;
 }
@@ -80,17 +78,17 @@
 }
 
 .karma_points_happy {
-	color: #33E;
+	color: #88BBFF;
 }
 .karma_points_evil {
-	color: #D33;
+	color: #B33;
 }
 
 .happy {
-	background: url("../images/happy.png") no-repeat;	
+	background: url("../images/happy.png") no-repeat;
 }
 .evil {
-	background: url("../images/evil.png") no-repeat;	
+	background: url("../images/evil.png") no-repeat;
 }
 
 div.fleche_derouler {
@@ -98,8 +96,8 @@ div.fleche_derouler {
 	display: block;
 	width: 41px;
 	height: 20px;
-	//padding-bottom: 14px;	
-	background: url("../images/fleche_derouler.png") no-repeat;	
+	//padding-bottom: 14px;
+	background: url("../images/fleche_derouler.png") no-repeat;
 }
 div.theme_1:hover {
 	cursor: pointer;
@@ -112,24 +110,20 @@ div.theme_2:hover {
 
 ul {
 	list-style-type: none;
-	padding-left: 0px;
-	//padding-bottom: 14px;	
+	padding-left: 0;
 	margin-bottom: 10px;
 	margin-top: 10px;
 }
 li {
-	padding-left: 32px;
-	padding-top: 4px;
-	padding-bottom: 4px;
-	padding-right: 32px;
-	
-	text-align: justify;
+    padding: 4px 32px;
+
+    text-align: justify;
 	//text-indent: 50px;
 	line-height: 1.4;
-	
-	-moz-border-radius: 4px; 
- 	-webkit-border-radius: 4px; 
-  	border-radius: 4px; 
+
+	-moz-border-radius: 4px;
+ 	-webkit-border-radius: 4px;
+  	border-radius: 4px;
 }
 li.piste_ouverte:hover {
 	cursor: pointer;
@@ -143,7 +137,7 @@ li.piste_ouverte:hover {
 }
 .demander-bouton {
 	float: right;
-	padding-right: 0px;
+	padding-right: 0;
 }
 
 div.piste_texte {
@@ -157,10 +151,10 @@ textarea {
 	margin-top: 12px;
 	margin-bottom: 8px;
 	font-size: 1em;
-	-moz-border-radius: 6px; 
- 	-webkit-border-radius: 6px; 
-  	border-radius: 6px; 
-  	
+	-moz-border-radius: 6px;
+ 	-webkit-border-radius: 6px;
+  	border-radius: 6px;
+
   	border: 1px dashed #555;
   	background-color: rgba(255, 255, 255, 0);
 }
